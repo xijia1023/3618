@@ -1,0 +1,20 @@
+L=200000
+n=120
+i=.03
+monthly_rate=(1+i)^(1/12)-1
+payment_size=200000/((1-(1/(1+monthly_rate))^n)/monthly_rate)
+amortization_table=matrix(c(0,0,L),ncol=3)
+n=0
+repeat{
+n=n+1
+I=L*monthly_rate
+PR=L-I
+L=L-payment_size+I
+amortization_table=rbind(amortization_table,(c(I,PR,L)))
+if(n>119)
+{break}
+}
+rownames=seq(0,120,1)
+colnames=c("Interest Paid","Principal Repaid","Outstanding Balance")
+amortization_table=matrix(amortization_table,ncol=3,dimnames=list(rownames,colnames))
+amortization_table
