@@ -1,0 +1,21 @@
+n=10
+C=10000
+r=0.06
+i=0.04
+K=C*r/2
+P=K*((1-(1+i/2)^(-n*2))/(i/2))+C*(1+i/2)^(-n*2)
+amortization_table=matrix(c(0,0,P),ncol=3)
+n=0
+repeat{
+n=n+1
+I=P*(i/2)
+PP=K-I
+P=P-PP
+amortization_table=rbind(amortization_table,(c(I,PP,P)))
+if(n>19)
+{break}
+}
+rownames=seq(0,20,1)
+colnames=c("Interest","Principal Payment","Book Value")
+amortization_table=matrix(amortization_table,ncol=3,dimnames=list(rownames,colnames))
+amortization_table
